@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Info Checker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Vehicle Information Checker</h1>
+        
+        <!-- Cookie Management -->
+        <div class="cookie-management">
+            <div class="cookie-input-group">
+                <div class="cookie-input-wrapper">
+                    <input type="text" id="newCookie" 
+                           placeholder="Enter your token"
+                           class="cookie-input">
+                    <button class="help-button" onclick="showTokenFormatExample()" 
+                            title="Show token format example">?</button>
+                </div>
+                <button onclick="addCookie()">Add Cookie</button>
+            </div>
+            <div class="cookie-format-hint">
+                Enter only the token part - it will automatically be formatted as a cookie
+            </div>
+            <div id="cookiesStatus" class="cookies-status">
+                <!-- Cookie count and view button will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Bulk Upload -->
+        <div class="bulk-upload">
+            <div class="upload-section">
+                <input type="file" id="dlFile" accept=".txt" class="file-input">
+                <label for="dlFile">Upload Vehicle Numbers File</label>
+            </div>
+            <div class="bulk-controls">
+                <button onclick="startBulkCheck()" class="bulk-check-btn">Start Bulk Check</button>
+                <button onclick="stopBulkCheck()" class="bulk-stop-btn" disabled>Stop</button>
+                <div id="bulkProgress" class="progress-info">
+                    <span id="progressCount"></span>
+                    <div class="progress-bar">
+                        <div id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Form -->
+        <div class="input-group">
+            <input type="text" id="vehicleNumber" placeholder="Enter Vehicle Number (e.g., DL8CR7968)">
+            <input type="text" id="proxyInput" placeholder="Enter proxy (ip:port:username:password)">
+            
+            <!-- Advanced Filters -->
+            <div class="advanced-filters">
+                <select id="vehicleTypeFilter">
+                    <option value="">All Vehicle Types</option>
+                    <option value="PRIVATE_CAR">Private Car</option>
+                    <option value="TWO_WHEELER">Two Wheeler</option>
+                    <option value="THREE_WHEELER">Three Wheeler</option>
+                    <option value="FOUR_WHEELER">Four Wheeler</option>
+                </select>
+
+                <select id="fuelTypeFilter">
+                    <option value="">All Fuel Types</option>
+                    <option value="PETROL">Petrol</option>
+                    <option value="DIESEL">Diesel</option>
+                    <option value="PETROL/CNG">Petrol/CNG</option>
+                    <option value="ELECTRIC">Electric</option>
+                </select>
+
+                <input type="text" id="modelFilter" placeholder="Filter by Model">
+                <input type="text" id="manufacturerFilter" placeholder="Filter by Manufacturer">
+                
+                <div class="date-filters">
+                    <input type="date" id="policyExpiryFrom" placeholder="Policy Expiry From">
+                    <input type="date" id="policyExpiryTo" placeholder="Policy Expiry To">
+                </div>
+            </div>
+
+            <button onclick="checkVehicle()">Check Vehicle</button>
+            <button onclick="downloadExcel()" class="download-btn">Download Results</button>
+        </div>
+
+        <div id="result" class="result-container">
+            <table id="resultTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Registration Number</th>
+                        <th>Vehicle Type</th>
+                        <th>Vehicle Name</th>
+                        <th>Model Name</th>
+                        <th>Fuel Type</th>
+                        <th>Owner Name</th>
+                        <th>Policy Expiry</th>
+                    </tr>
+                </thead>
+                <tbody id="resultTableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="searchHistory" class="history-container">
+            <h2>Search History</h2>
+            <div class="history-controls">
+                <button onclick="clearFilters()">Clear Filters</button>
+                <span id="resultCount"></span>
+            </div>
+            <table id="historyTable">
+                <thead>
+                    <tr>
+                        <th>Registration Number</th>
+                        <th>Vehicle Type</th>
+                        <th>Vehicle Name</th>
+                        <th>Model Name</th>
+                        <th>Fuel Type</th>
+                        <th>Owner Name</th>
+                        <th>Policy Expiry</th>
+                    </tr>
+                </thead>
+                <tbody id="historyTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
